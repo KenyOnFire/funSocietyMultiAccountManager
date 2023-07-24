@@ -1,5 +1,6 @@
 //import React from 'react'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const OrdersList = () => {
 
@@ -73,25 +74,33 @@ const OrdersList = () => {
 
     return (
         <>
-            {actualOrders.slice(startIndex, startIndex + ordersPerPage).map((order, index) => (
-                <>
-                <div className='grid grid-cols-3'>
-                    <div key={index} className="grid grid-rows-3 mr-2 col-span-2">
-                        <h3>{order.type_order} {order.crypto}</h3>
-                        <p>Precio {order.price}</p>
-                        <p>Cantidad {order.quanty_crypto}</p>
-                        <p>Orden {order.num_order}</p>
+            <ul>
+                {actualOrders.slice(startIndex, startIndex + ordersPerPage).map((order, index) => (
+                    <div key={index}>
+                        <Link to={`/orders/${order.num_order}`}>
+                            <div className='bg-gray-500 mt-2 pb-2'>
+                                <p>Orden de ARI</p>
+                            </div>
+                            <li className='grid grid-cols-3 p- -mt-1.5'>
+                                <div className="grid grid-rows-3 col-span-2 p-1 m-2">
+                                    <h3>{order.type_order} {order.crypto}</h3>
+                                    <p>Precio {order.price}</p>
+                                    <p>Cantidad {order.quanty_crypto}</p>
+                                    <p className='text-sm'>Id {order.num_order}</p>
+                                </div>
+                                <div className="grid grid-rows-3 text-right leading-none p-1 m-1">
+                                    <p className='text-xs mt-1'>{order.status}</p>
+                                    <p className='text-xs'>{order.time_creation}</p>
+                                    
+                                    <p>{order.quanty_fiat}</p>
+                                </div>
+                            </li>
+                        </Link>
+                        <hr className="h-px my-1 border-2 bg-gray-500"/>
                     </div>
-                    <div key={index} className="grid grid-rows-3 text-right leading-none pb-12">
-                        <p className='text-xs'>{order.status}</p>
-                        <p className='text-xs'>{order.time_creation}</p>
-                        <p>{order.quanty_fiat}</p>
-                    </div>
-                </div>
+                ))}
+            </ul>
 
-                <hr className="h-px my-1 border-2 bg-gray-500"/>
-                </>
-            ))}
             <div className='container mx-auto flex justify-center mt-6'>
                 <button
                     onClick={handleBack}

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 import Navbar from './modules/Navbar';
 import Home from './pages/Home';
@@ -6,8 +7,14 @@ import Orders from './pages/Orders';
 import Commercial from './pages/Commercial';
 import Profile from './pages/Profile';
 
+
 function App() {
-  const [activeModule, setActiveModule] = useState('Home');
+  const [activeModule, setActiveModule] = useState(localStorage.getItem('activeModule') || 'Home');
+
+  // Save the activeModule value to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('activeModule', activeModule);
+  }, [activeModule]);
 
   return (
     <>
