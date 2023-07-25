@@ -33,7 +33,7 @@ const OrdersList = () => {
         "type_order": "Vender",
         "crypto": "USDT",
         "time_creation": "2023-07-09 18:06:01",
-        "num_order": " 22898867xx1138x49920",
+        "num_order": "22898867xx1138x49920",
         "quanty_fiat": "120.600 EUR",
         "price": "1.005 EUR",
         "quanty_crypto": "120.00 USDT",
@@ -77,7 +77,7 @@ const OrdersList = () => {
             <ul>
                 {actualOrders.slice(startIndex, startIndex + ordersPerPage).map((order, index) => (
                     <div key={index}>
-                        <Link to={`/orders/${order.num_order}`}>
+                        <Link to={`/orders/${order.num_order}`} onClick={localStorage.setItem('activeModule', 'Order Info')}>
                             <div className='bg-gray-500 mt-2 pb-2'>
                                 <p>Orden de ARI</p>
                             </div>
