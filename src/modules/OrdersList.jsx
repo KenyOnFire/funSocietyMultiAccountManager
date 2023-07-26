@@ -18,7 +18,7 @@ const OrdersList = () => {
         "url_operacion": "Contacto"
         },
         {
-        "type_order": "Vender",
+        "type_order": "Comprar",
         "crypto": "USDT",
         "time_creation": "2023-07-14 08:17:30",
         "num_order": "205256075xx0533x2640",
@@ -42,7 +42,7 @@ const OrdersList = () => {
         "url_operacion": "Contacto"
         },
         {
-        "type_order": "Vender",
+        "type_order": "Comprar",
         "crypto": "USDT",
         "time_creation": "2023-07-09 17:51:45",
         "num_order": "2051xx845459086x1464",
@@ -77,7 +77,7 @@ const OrdersList = () => {
             <ul>
                 {actualOrders.slice(startIndex, startIndex + ordersPerPage).map((order, index) => (
                     <div key={index}>
-                        <Link to={`/orders/${order.num_order}`} onClick={localStorage.setItem('activeModule', 'Order Info')}>
+                        <Link to={(order.type_order === 'Comprar') ? `/orders/buy/${order.num_order}` : `/orders/sell/${order.num_order}`} onClick={localStorage.setItem('activeModule', 'Order Info')}>
                             <div className='bg-gray-500 mt-2 pb-2'>
                                 <p>Orden de ARI</p>
                             </div>

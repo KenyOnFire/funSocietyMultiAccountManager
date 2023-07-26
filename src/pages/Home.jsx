@@ -6,7 +6,6 @@ import CommercialList from '../modules/CommercialList';
 
 const Home = () => {
   return (
-    <>
     <div className="grid grid-cols-2 max-w-[20rem]">
       <div className="col-span-1 w-80">
         <div className="grid grid-cols-2 gap-2 p-2 ml-1.5">
@@ -18,8 +17,6 @@ const Home = () => {
         <CommercialList/>
       </div>
     </div>
-    </>
-    
   )
 }
 
