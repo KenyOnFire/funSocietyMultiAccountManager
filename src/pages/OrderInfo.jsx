@@ -17,17 +17,19 @@ const OrderInfo = () => {
             { id: 1, titleBank: 'Skrill', content: ["Nombre: Pepito Perez Atanasov", "Cuenta Bancaria: ES2820958297603648596978", "Tu madre pagadora: fooking mileurista", "Contenido ext: 3", "Contenido ext: 3"] },
             { id: 2, titleBank: 'Neteller', content: ["Nombre: Caperuzita Foking Roja", "Correo electronico: larojadecaperuzita@rumanian.xd", "Ah bueno: todo bien hjsjsj"] },
             { id: 3, titleBank: 'SEPA Bank Transfer', content: ["Contenido ext: 1", "Contenido ext: 2", "Contenido ext: 3"] },
-        ]
+        ],
+        "bank_selected":2
     });
-    // TODO: HACER QUE EL BOTON DE LOS BANCOS, EN CASO DE QUE LA ORDEN ESTE EN wait_to_recive_money, EL QUE HAYA MARCADO SE PONDRA EN VERDE
     const [isPaidBoxVisible, setIsPaidBoxVisible] = useState(false);
+    const [bankSelected, setBankSelected] = useState("");
 
     const handleMarkAsPaid = () => {
       setIsPaidBoxVisible(!isPaidBoxVisible);
       if (orderInfo.status_order === "transfer_to_client" && params.buy_or_sell === "buy") {
         setOrderInfo(prevOrderInfo => ({
             ...prevOrderInfo,
-            status_order: "wait_to_recive_money"
+            status_order: "wait_to_recive_money",
+            bank_selected: bankSelected
         }));
       }
     };
@@ -41,11 +43,10 @@ const OrderInfo = () => {
         if (orderInfo.status_order === "wait_to_recive_money" && params.buy_or_sell === "sell") {
             setOrderInfo(prevOrderInfo => ({
                 ...prevOrderInfo,
-                status_order: "order_completed"
+                status_order: "order_completed",
             }));
         }
     };
-  
     return (
         <>
             <div className="grid grid-rows-1 max-w-[20rem]">
@@ -86,7 +87,7 @@ const OrderInfo = () => {
                 </div>
                 <div className='col-span-2 bg-[#2563eb] rounded text-white'>
                     <h2 className='text-center pt-2'>🏦 Bancos disponibles 🏦</h2>
-                    <ListBanks items={orderInfo.list_banks}/>
+                    <ListBanks items={orderInfo} setBankSelected={setBankSelected} buy_or_sell={params.buy_or_sell} bank_selected={orderInfo.bank_selected}/>
                 </div>
                 {orderInfo.status_order === "transfer_to_client" && params.buy_or_sell === "buy" && (
                     <div className='container mx-auto flex justify-center mt-6'>
